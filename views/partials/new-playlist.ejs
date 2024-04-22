@@ -1,0 +1,34 @@
+<!-- <div class="new-playlist">
+    <p>Create a new playlist!</p>
+    <button id="openDialogButton" aria-label="create new playlist"> <img src="/assets/buttons/light/add-sqaure.svg"
+            alt="create new playlist" width="100">
+    </button>
+</div>
+
+<div id="playlistDialog">
+    <form action="/playlist/create" method="POST">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br>
+
+        <label for="myFile" id="dropArea">Upload your image
+            <input type="file" id="myFile" name="filename" accept="image/x-png, image/jpeg" style="display : none" />
+            <div id="image-view"></div>
+        </label>
+        <button type="submit" disabled></button>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description"></textarea>
+
+        <label for="selectedStories">Select Stories:</label><br>
+        <select id="selectedStories" name="selectedStories" multiple>
+            <% stories.forEach(story=> { %>
+                <option value="<%= story.id %>">
+                    <%= story.title %>
+                </option>
+                <% }); %>
+        </select><br>
+
+        <button type="submit">Create Playlist</button>
+        <button type="button" id="closeDialogButton">Cancel</button>
+    </form>
+</div> -->

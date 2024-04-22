@@ -25,9 +25,11 @@ app.use(express.urlencoded({ extended: true }));
 const storiesData = await fetchJson(apiUrl + "/tm_story");
 const playlistsData = await fetchJson(apiUrl + "/tm_playlist");
 
-// array voor de gelikede playlists / stories
-
+// array voor de gelikede playlists
 let favs = [];
+
+// array new playlist
+let newPlaylist = [];
 
 // route voor homepage
 app.get("/", function (request, response) {
@@ -54,6 +56,19 @@ app.get("/playlists", function (request, response) {
   });
 });
 
+// Maak een GET route voor een detailpagina met een request parameter id
+app.get("/stories", function (request, response) {
+  // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
+  fetchJson(apiUrl + "/stories" + request.params.id).then((apiData) => {
+    // Render person.ejs uit de views map en geef de opgehaalde data mee als variable, genaamd person
+    response.render("stories", {
+      stories: storiesData.data,
+      playlists: playlistsData.data,
+      favs: favs,
+    });
+  });
+});
+
 // detail pagina playlist
 
 app.get("/playlist/:slug", function (request, response) {
@@ -70,33 +85,52 @@ app.get("/playlist/:slug", function (request, response) {
 
 //! post voor fav playlists
 
-// POST route for liking a playlist
-app.post("/playlist/:slug/like", function (request, response) {
-  // Extract the playlist ID from the request parameters
+// POST route for liking or unliking a playlist
+app.post("/playlist/:slug/like", (request, response) => {
   const playlistSlug = request.params.slug;
-
-  // Check if the playlist ID exists
   const playlist = playlistsData.data.find(
     (playlist) => playlist.slug === playlistSlug
   );
 
-  // If the playlist is found, add it to the favs array
   if (playlist) {
-    // Check if the playlist is already in the favs array
-    if (!favs.some((item) => item.slug === playlist.slug)) {
-      // Add the playlist to the favs array
+    const index = favs.findIndex((item) => item.slug === playlist.slug);
+    if (index === -1) {
       favs.push(playlist);
       console.log("Playlist added to favs:", playlist);
     } else {
-      console.log("Playlist is already in favs:", playlist);
+      favs.splice(index, 1);
+      console.log("Playlist removed from favs:", playlist);
     }
   } else {
     console.log("Playlist not found with slug:", playlistSlug);
   }
 
-  // Redirect back to the home page after liking the playlist
   response.redirect(303, "/");
 });
+
+//! POST route for creating a playlist
+app.post("/playlist/create", (request, response) => {
+    const { title, imageUrl, description, selectedStories } = request.body;
+    
+    // Process the data (e.g., save it to a database)
+    const playlistData = { title, imageUrl, description, selectedStories };
+    newPlaylist.push(playlistData);
+
+    // Redirect to the home page after playlist creation
+    response.redirect("/");
+});
+
+// POST route for deleting a playlist
+app.post("/playlist/:id/delete", (request, response) => {
+    const playlistId = request.params.id;
+    
+    // Process the data (e.g., delete playlist from the array)
+    newPlaylist = newPlaylist.filter((playlist, index) => index !== parseInt(playlistId));
+
+    // Redirect to the home page after playlist deletion
+    response.redirect("/");
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 8000;
