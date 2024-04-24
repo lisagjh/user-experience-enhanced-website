@@ -1,11 +1,20 @@
 <div class="playlist-wrapper">
     <% playlists.forEach(playlist=> { %>
-        <article class="playlist">
 
-            <% if (playlist.image) { %><img src="https://fdnd-agency.directus.app/assets/<%= playlist.image %>"
-                    alt="playlist cover image" width="200" height="200">
+        <article class="playlist">
+            <% if (playlist.image) { %>
+                <picture class="cover-image">
+                    <source
+                        srcset="https://fdnd-agency.directus.app/assets/<%= playlist.image %>?width=200&height=200&format=avif"
+                        type="image/avif" alt="cover image" loading="lazy">
+                    <source
+                        srcset="https://fdnd-agency.directus.app/assets/<%= playlist.image %>?width=200&height=200&format=webp"
+                        type="image/webp" alt="cover image" loading="lazy">
+                    <img src="https://fdnd-agency.directus.app/assets/<%= playlist.image %>?width=200&height=200"
+                        alt="playlist cover image">
+                </picture>
                 <% } else { %>
-                    <img src="/assets/empty-cover" alt="cover image">
+                    <img src="/assets/empty-cover" alt="cover image" loading="lazy">
                     <% } %>
 
                         <section class="playlist-info">

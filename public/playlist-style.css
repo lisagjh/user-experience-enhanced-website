@@ -196,18 +196,12 @@ button:disabled {
 
 .playlist {
   background-color: var(--primary-two);
-  width: 12.5rem;
+  min-width: 12.5rem;
+  max-width: 12.5rem;
   margin: var(--space-half) var(--space-third);
   border-radius: 12px;
   transition: all 0.2s ease-in-out;
   overflow: hidden;
-
-  img {
-    height: 200px;
-    width: 200px;
-    border-radius: 12px 12px 0 0;
-    transition: all 0.2s ease-in-out;
-  }
 }
 
 .playlist-info {

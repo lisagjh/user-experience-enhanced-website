@@ -1,0 +1,47 @@
+<div class="stories-wrapper">
+    <% stories.forEach(story=> { %>
+        <article class="story">
+
+            <% if (story.image) { %>
+                <picture class="cover-image">
+                    <source
+                        srcset="https://fdnd-agency.directus.app/assets/<%= story.image %>?width=200&height=200&format=avif"
+                        type="image/avif" alt="cover image" loading="lazy">
+                    <source
+                        srcset="https://fdnd-agency.directus.app/assets/<%= story.image %>?width=200&height=200&format=webp"
+                        type="image/webp" alt="cover image" loading="lazy">
+                    <img src="https://fdnd-agency.directus.app/assets/<%= story.image %>?width=200&height=200"
+                        alt="playlist cover image">
+                </picture>
+                <% } else { %>
+                    <img src="/assets/empty-cover" alt="cover image" loading="lazy">
+                    <% } %>
+
+                        <section class="story-info">
+                            <a href="/story/<%- story.slug %>">
+                                <h3>
+                                    <%= story.title %>
+                                </h3>
+                            </a>
+                            <p>
+                                <%= story.description %>
+                            </p>
+
+                        </section>
+        </article>
+        <% }) %>
+</div>
+</div>
+
+<div class="carousel-btn">
+    <button class="story-prev-btn" aria-label="previous"><img src="/assets/buttons/light/arrow-left-light.svg"
+            alt="arrow image" width="50">
+    </button>
+    <% stories.forEach(story=> { %>
+        <a href="#<%= story.id %>">
+            <%= story.id %>
+        </a>
+        <% }) %>
+            <button class="story-next-btn" aria-label="next"><img src="/assets/buttons/light/arorw-right-light.svg"
+                    alt="arrow image" width="50" loading="lazy"></button>
+</div>

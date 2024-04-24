@@ -8,7 +8,6 @@ import { resolveInclude } from "ejs";
 // Set the base API endpoint
 const apiUrl = "https://fdnd-agency.directus.app/items";
 
-//  `${apiUrl}/tm_playlist?filter{"slug": "${request.params.slug}"}`
 // Create a new Express app
 const app = express();
 
@@ -23,7 +22,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 const storiesData = await fetchJson(apiUrl + "/tm_story");
-const playlistsData = await fetchJson(apiUrl + "/tm_playlist");
+const playlistsData = await fetchJson(apiUrl + "/tm_playlist?fields=*.*.*");
 
 // array voor de gelikede playlists
 let favs = [];
@@ -43,12 +42,11 @@ app.get("/", function (request, response) {
   });
 });
 
-// Maak een GET route voor een detailpagina met een request parameter id
-app.get("/playlists", function (request, response) {
-  // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
-  fetchJson(apiUrl + "/tm_playlist" + request.params.id).then((apiData) => {
-    // Render person.ejs uit de views map en geef de opgehaalde data mee als variable, genaamd person
-    response.render("playlists", {
+// route voor lessons
+app.get("/lessons", function (request, response) {
+  // Haal alle personen uit de WHOIS API op
+  fetchJson(apiUrl).then((apiData) => {
+    response.render("lessons", {
       stories: storiesData.data,
       playlists: playlistsData.data,
       favs: favs,
@@ -57,11 +55,11 @@ app.get("/playlists", function (request, response) {
 });
 
 // Maak een GET route voor een detailpagina met een request parameter id
-app.get("/stories", function (request, response) {
+app.get("/playlists", function (request, response) {
   // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
-  fetchJson(apiUrl + "/stories" + request.params.id).then((apiData) => {
+  fetchJson(apiUrl + "/tm_playlist" + request.params.id).then((apiData) => {
     // Render person.ejs uit de views map en geef de opgehaalde data mee als variable, genaamd person
-    response.render("stories", {
+    response.render("playlists", {
       stories: storiesData.data,
       playlists: playlistsData.data,
       favs: favs,
@@ -108,27 +106,41 @@ app.post("/playlist/:slug/like", (request, response) => {
   response.redirect(303, "/");
 });
 
-//! POST route for creating a playlist
-app.post("/playlist/create", (request, response) => {
-    const { title, imageUrl, description, selectedStories } = request.body;
-    
-    // Process the data (e.g., save it to a database)
-    const playlistData = { title, imageUrl, description, selectedStories };
-    newPlaylist.push(playlistData);
-
-    // Redirect to the home page after playlist creation
-    response.redirect("/");
+// Maak een GET route voor een detailpagina met een request parameter id
+app.get("/stories", function (request, response) {
+  // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
+  fetchJson(apiUrl + "/stories" + request.params.id).then((apiData) => {
+    response.render("stories", {
+      stories: storiesData.data,
+      playlists: playlistsData.data,
+      favs: favs,
+    });
+  });
 });
 
-// POST route for deleting a playlist
-app.post("/playlist/:id/delete", (request, response) => {
-    const playlistId = request.params.id;
-    
-    // Process the data (e.g., delete playlist from the array)
-    newPlaylist = newPlaylist.filter((playlist, index) => index !== parseInt(playlistId));
+app.get("/stories/:slug", function (request, response) {
+  const url = `${apiUrl}/tm_story?filter={"slug":{"_eq":"${request.params.slug}"}}`;
 
-    // Redirect to the home page after playlist deletion
-    response.redirect("/");
+  fetchJson(url).then((storiesData) => {
+    response.render("story-detail", {
+      playlist: playlistData.data,
+      stories: storiesData.data,
+      favs: favs,
+    });
+  });
+})
+
+
+app.get("/playlist/:slug", function (request, response) {
+  const url = `${apiUrl}/tm_playlist?filter={"slug":{"_eq":"${request.params.slug}"}}`;
+
+  fetchJson(url).then((playlistData) => {
+    response.render("playlist-detail", {
+      playlist: playlistData.data,
+      stories: storiesData.data,
+      favs: favs,
+    });
+  });
 });
 
 

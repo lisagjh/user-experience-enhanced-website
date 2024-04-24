@@ -2,7 +2,7 @@
 
     <div class="top-content">
         <h2>Favorite Playlists</h2>
-        <% if (favs.length>1) { %>
+        <% if (favs.length>0) { %>
             <p>(<%= favs.length %>) </p>
             <% } %>
     </div>
@@ -17,31 +17,42 @@
             <div class="fav-playlists">
                 <% favs.forEach(playlist=> { %>
                     <article class="fav-playlist">
-                        <% if (playlist.image) { %><img
-                                src="https://fdnd-agency.directus.app/assets/<%= playlist.image %>"
-                                alt="playlist cover image">
-                            <% } %>
-                                <h3>
-                                    <%= playlist.title %>
-                                </h3>
+                        <% if (playlist.image) { %>
+                            <picture class="cover-image">
+                                <source
+                                    srcset="https://fdnd-agency.directus.app/assets/<%= playlist.image %>?width=200&height=200&format=avif"
+                                    type="image/avif" alt="cover image" loading="lazy">
+                                <source
+                                    srcset="https://fdnd-agency.directus.app/assets/<%= playlist.image %>?width=200&height=200&format=webp"
+                                    type="image/webp" alt="cover image" loading="lazy">
+                                <img src="https://fdnd-agency.directus.app/assets/<%= playlist.image %>?width=200&height=200"
+                                    alt="playlist cover image">
+                            </picture>
+                            <% } else { %>
+                                <img src="/assets/empty-cover" alt="cover image" loading="lazy">
+                                <% } %>
 
-                                <p>
-                                    <%= playlist.description %>
-                                </p>
+                                    <h3>
+                                        <%= playlist.title %>
+                                    </h3>
 
-                                <div class="playlist-story-length">
-                                    <% if (playlist.stories.length===0) { %>
-                                        <p>This playlist has no stories.</p>
-                                        <% } else if (playlist.stories.length===1) { %>
-                                            <p>
-                                                <%= playlist.stories.length %> story
-                                            </p>
-                                            <% } else { %>
+                                    <p>
+                                        <%= playlist.description %>
+                                    </p>
+
+                                    <div class="playlist-story-length">
+                                        <% if (playlist.stories.length===0) { %>
+                                            <p>This playlist has no stories.</p>
+                                            <% } else if (playlist.stories.length===1) { %>
                                                 <p>
-                                                    <%= playlist.stories.length %> stories
+                                                    <%= playlist.stories.length %> story
                                                 </p>
-                                                <% } %>
-                                </div>
+                                                <% } else { %>
+                                                    <p>
+                                                        <%= playlist.stories.length %> stories
+                                                    </p>
+                                                    <% } %>
+                                    </div>
                     </article>
                     <% }); %>
             </div>
