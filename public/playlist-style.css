@@ -27,6 +27,11 @@
   --space-third: 0.9rem;
 }
 
+.playlist-container {
+  display: grid;
+  place-items: center;
+}
+
 /** fav playlists */
 
 .favs-list {

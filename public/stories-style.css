@@ -1,0 +1,80 @@
+.stories-container {
+  display: grid;
+  justify-content: center;
+  width: 100vw;
+}
+
+.stories-wrapper {
+    display: grid;
+    gap: 1.5rem;
+    place-items: center;
+    margin-top: var(--space-reg);
+}
+
+.story {
+  display: grid;
+  place-items: center;
+  gap: 0.25rem;
+  background-color: var(--primary-two);
+  width: 80%;
+  height: 100%;
+  padding: var(--space-small);
+  border-radius: 6px;
+
+}
+
+.story a {
+  text-decoration: none;
+}
+
+.story img {
+  width: 100%;
+  max-width: 200px;
+  min-width: 100px;
+  border-radius: 6px;
+  align-self: center;
+  justify-self: center;
+}
+
+.story .story-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.story-buttons .interact-btns {
+  display: flex;
+  flex-direction: row;
+}
+
+.story-buttons button {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-small);
+  border: none;
+  border-radius: 50%;
+  height: 2.5rem;
+  width: 2.5rem;
+  margin: 0 var(--space-small);
+}
+
+.story-buttons button img {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+/* buttons */
+
+.download-btn {
+  background-color: var(--orange);
+}
+
+.add-to-btn {
+  background-color: var(--light-green);
+}
+
+.play-btn {
+  background-color: var(--blue);
+}
