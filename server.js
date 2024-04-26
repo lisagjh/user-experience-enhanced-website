@@ -130,20 +130,6 @@ app.get("/stories/:slug", function (request, response) {
   });
 })
 
-
-app.get("/playlist/:slug", function (request, response) {
-  const url = `${apiUrl}/tm_playlist?filter={"slug":{"_eq":"${request.params.slug}"}}`;
-
-  fetchJson(url).then((playlistData) => {
-    response.render("playlist-detail", {
-      playlist: playlistData.data,
-      stories: storiesData.data,
-      favs: favs,
-    });
-  });
-});
-
-
 // Start the server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, function () {
