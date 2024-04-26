@@ -108,7 +108,7 @@ app.post("/playlist/:slug/like", (request, response) => {
 
 // Maak een GET route voor een detailpagina met een request parameter id
 app.get("/stories", function (request, response) {
-  // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
+  // Gebruik de request parameter id en haal de juiste story uit de API op
   fetchJson(apiUrl + "/stories" + request.params.id).then((apiData) => {
     response.render("stories", {
       stories: storiesData.data,
