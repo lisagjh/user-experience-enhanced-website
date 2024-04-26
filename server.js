@@ -100,10 +100,10 @@ app.post("/playlist/:slug/like", (request, response) => {
       console.log("Playlist removed from favs:", playlist);
     }
   } else {
-    console.log("Playlist not found with slug:", playlistSlug);
+    console.log("Playlist not found:", playlistSlug);
   }
 
-  response.redirect(303, "/");
+  response.redirect(303, "/playlists");
 });
 
 // Maak een GET route voor een detailpagina met een request parameter id
