@@ -149,50 +149,12 @@
   }
 }
 
-/* new playlist */
-
-.new-playlist {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #954be250;
-  backdrop-filter: blur(5px);
-  border-radius: 6px;
-  width: 15rem;
-  height: 25rem;
-
-  p {
-    color: var(--primary-two);
-  }
-  button {
-    background-color: var(--purple);
-    border: none;
-  }
-}
-
-button:disabled {
-  background-color: grey;
-  color: white;
-  cursor: default;
-}
-
-#image-view {
-  width: 25rem;
-  height: 20rem;
-  margin-top: 3rem;
-  padding: 0.1rem;
-  border: 3px dashed var(--green);
-  background-size: contain;
-  background-repeat: no-repeat;
-  transition: all 0.25s ease-in;
-}
-
 /* playlist article */
 
 .playlist-wrapper {
   display: flex;
   flex-direction: row;
+  width: 100%;
   overflow: auto;
   padding: var(--space-half);
   margin: var(--space-small) 0;
@@ -200,6 +162,8 @@ button:disabled {
 }
 
 .playlist {
+  display: grid;
+  place-items: center;
   background-color: var(--primary-two);
   min-width: 12.5rem;
   max-width: 12.5rem;
@@ -207,6 +171,12 @@ button:disabled {
   border-radius: 12px;
   transition: all 0.2s ease-in-out;
   overflow: hidden;
+}
+
+.playlist picture  {
+  width: 200px;
+  height: 200px;
+  background-color: var(--grey);
 }
 
 .playlist-info {

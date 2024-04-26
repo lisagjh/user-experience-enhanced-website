@@ -14,7 +14,7 @@ function uploadImage() {
 
 // playlist carousel
 
-const itemWidth = 253;
+const itemWidth = 220;
 const nextPlaylist = document.querySelector(".playlist-next-btn");
 const prevPlaylist = document.querySelector(".playlist-prev-btn");
 const listPlaylist = document.querySelector(".playlist-container");
