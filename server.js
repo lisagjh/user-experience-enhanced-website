@@ -22,7 +22,9 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 const storiesData = await fetchJson(apiUrl + "/tm_story");
-const playlistsData = await fetchJson(apiUrl + "/tm_playlist?fields=*.*.*");
+const playlistsData = await fetchJson(apiUrl + "/tm_playlist");
+
+// ?fields=*.*.* -> stond achter playlistData, als ik dit weg haal werken imgs wel??
 
 // array voor de gelikede playlists
 let favs = [];
@@ -45,6 +47,7 @@ app.get("/", function (request, response) {
 // route voor lessons
 app.get("/lessons", function (request, response) {
   // Haal alle personen uit de WHOIS API op
+  console.log(playlistsData)
   fetchJson(apiUrl).then((apiData) => {
     response.render("lessons", {
       stories: storiesData.data,
@@ -103,7 +106,11 @@ app.post("/playlist/:slug/like", (request, response) => {
     console.log("Playlist not found:", playlistSlug);
   }
 
-  response.redirect(303, "/playlists");
+  if (request.body.enhanced) {
+    response.render('partials/fav-playlist', {favs: favs})
+  } else {
+    response.redirect(303, '/playlists')
+  }
 });
 
 // Maak een GET route voor een detailpagina met een request parameter id

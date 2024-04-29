@@ -43,32 +43,3 @@ prevFav.addEventListener("click", function () {
 nextFav.addEventListener("click", function () {
   listFav.scrollLeft += favWidth;
 });
-
-// to open and close the dialog
-const openDialogButton = document.getElementById("openDialogButton");
-const closeDialogButton = document.getElementById("closeDialogButton");
-const playlistDialog = document.getElementById("playlistDialog");
-
-// Function to open the dialog
-function openDialog() {
-  playlistDialog.showModal();
-}
-
-// Function to show the success popup with a message
-function showSuccessPopup(message) {
-  const successPopup = document.getElementById("successPopup");
-  const successMessage = document.getElementById("successMessage");
-  successMessage.textContent = message;
-  successPopup.style.display = "block";
-  setTimeout(() => {
-    successPopup.style.display = "none";
-  }, 3000); // Hide after 3 seconds
-}
-
-// Add event listener to the button to open the dialog
-openDialogButton.addEventListener("click", openDialog);
-
-// Add event listener to the close button inside the dialog
-closeDialogButton.addEventListener("click", () => {
-  playlistDialog.close();
-});

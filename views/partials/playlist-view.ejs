@@ -8,10 +8,10 @@
                     <picture class="cover-image">
                         <source
                             srcset="https://fdnd-agency.directus.app/assets/<%= playlist.image %>?width=200&height=200&format=avif"
-                            type="image/avif" alt="cover image" loading="lazy">
+                            type="image/avif" alt="cover image">
                         <source
                             srcset="https://fdnd-agency.directus.app/assets/<%= playlist.image %>?width=200&height=200&format=webp"
-                            type="image/webp" alt="cover image" loading="lazy">
+                            type="image/webp" alt="cover image">
                         <img src="https://fdnd-agency.directus.app/assets/<%= playlist.image %>?width=200&height=200"
                             alt="playlist cover image">
                     </picture>
@@ -41,7 +41,7 @@
                                             <% } %>
                                 </div>
 
-                                <form action="/playlist/<%= playlist.slug %>/like" method="POST">
+                                <form action="/playlist/<%= playlist.slug %>/like" method="POST" class="like-fav">
                                     <button class="like-button" aria-label="like">
                                         <svg class="unliked" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
