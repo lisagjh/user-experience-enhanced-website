@@ -3,7 +3,6 @@ import express, { request, response } from "express";
 
 // Import the fetchJson function from a custom helper file
 import fetchJson from "./helpers/fetch-json.js";
-import { resolveInclude } from "ejs";
 
 // Set the base API endpoint
 const apiUrl = "https://fdnd-agency.directus.app/items";
